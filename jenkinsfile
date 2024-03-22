@@ -1,36 +1,29 @@
+pipeline {
+    agent any
 
-pipeline{
-  agent any
-
-
-
-  stages {
-
-  stage('install dependencies') {
-              steps {
-                  sh 'npm install'
-
-              }
-          }
- 
-
-
-  }
-  stage('Unit Test') {
-      steps{
+    stages {
         
-        script {
-         sh('npm test')
+        stage('install dependencies') {
+            steps {
+                sh 'npm install'
+             
+            }
         }
-      }
-    }
-  
-
-  stage('MVN SONARQUBE') {
+        stage('Unit Test') {
+            steps {
+                sh 'npm test'
+             
+            }
+        }
+        stage('MVN SONARQUBE') {
             steps {
                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=mimomimi99 -Dmaven.test.skip=true';
             }
         }
-
+               
+       
+      
+    }
 }
+
 
