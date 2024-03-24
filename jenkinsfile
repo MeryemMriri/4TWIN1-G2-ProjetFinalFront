@@ -9,12 +9,16 @@ pipeline {
              
             }
         }
-                stage('MVN SONARQUBE') {
-            steps {
-                sh 'sonar:sonar -Dsonar.login=admin -Dsonar.password=mimomimi99 -Dmaven.test.skip=true';
-                
-            }
-        }
+        stage('SonarQube Analysis') {
+            steps{
+                script { 
+                    def scannerHome = tool 'scanner'
+                    withSonarQubeEnv {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                } 
+            } 
+        }   
                
        
       
